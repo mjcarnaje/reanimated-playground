@@ -9,7 +9,7 @@ import AdvancedFlatListCarousel from "./screens/AdvancedFlatListCarousel";
 const Stack = createNativeStackNavigator();
 
 function App() {
-  let [fontsLoaded] = useFonts({
+  const [fontsLoaded] = useFonts({
     "Inter-Thin": require("./assets/fonts/Inter/Inter-Thin.ttf"),
     "Inter-ExtraLight": require("./assets/fonts/Inter/Inter-ExtraLight.ttf"),
     "Inter-Light": require("./assets/fonts/Inter/Inter-Light.ttf"),
@@ -21,19 +21,10 @@ function App() {
     "Inter-Black": require("./assets/fonts/Inter/Inter-Black.ttf"),
   });
 
-  React.useEffect(() => {
-    console.log(fontsLoaded + "...");
-  }, [fontsLoaded]);
-
   if (!fontsLoaded) {
     return (
-      <View
-        style={[
-          StyleSheet.absoluteFillObject,
-          { justifyContent: "center", alignItems: "center" },
-        ]}
-      >
-        <Text>Loading..</Text>
+      <View style={styles.container}>
+        <Text>App Loading..</Text>
       </View>
     );
   }
@@ -52,3 +43,11 @@ function App() {
 }
 
 export default App;
+
+const styles = StyleSheet.create({
+  container: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
