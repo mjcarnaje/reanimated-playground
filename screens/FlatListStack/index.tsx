@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import BlurredCarousel from "./BlurredCarousel";
 import SlickCarousel from "./SlickCarousel";
 import FlatListHome from "./FlatListHome";
+import ParallaxCarousel from "./ParallaxCarousel";
 
 export const FLATLIST_SCREENS = {
   SlickCarousel: {
@@ -12,6 +13,10 @@ export const FLATLIST_SCREENS = {
   BlurredCarousel: {
     title: "Blurred Carousel",
     component: BlurredCarousel,
+  },
+  ParallaxCarousel: {
+    title: "Parallax Carousel",
+    component: ParallaxCarousel,
   },
 };
 

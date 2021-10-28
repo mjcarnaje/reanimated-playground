@@ -37,9 +37,80 @@ export default function BlurredCarousel({
   navigation,
   route,
 }: NativeStackScreenProps<FlatListStackParams, "BlurredCarousel">) {
+  const scrollX = React.useRef(new Animated.Value(0)).current;
+
   return (
     <View style={{ flex: 1, backgroundColor: "#000" }}>
-      <StatusBar hidden />
+      <StatusBar backgroundColor="transparent" translucent />
+      <View style={[StyleSheet.absoluteFillObject]}>
+        {data.map((image, idx) => {
+          const inputRange = [
+            (idx - 1) * width,
+            idx * width,
+            (idx + 1) * width,
+          ];
+
+          const opacity = scrollX.interpolate({
+            inputRange,
+            outputRange: [0, 1, 0],
+          });
+
+          return (
+            <Animated.Image
+              key={`image-${idx}`}
+              source={{ uri: image }}
+              style={[StyleSheet.absoluteFillObject, { opacity }]}
+              blurRadius={36}
+            />
+          );
+        })}
+      </View>
+      <Animated.FlatList
+        data={data}
+        keyExtractor={(_, idx) => idx.toString()}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        pagingEnabled
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+          { useNativeDriver: true }
+        )}
+        renderItem={({ item }) => {
+          return (
+            <View
+              style={{
+                width,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <View
+                style={{
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+
+                  elevation: 5,
+                }}
+              >
+                <Image
+                  source={{ uri: item }}
+                  style={{
+                    width: imageW,
+                    height: imageH,
+                    resizeMode: "cover",
+                    borderRadius: 16,
+                  }}
+                />
+              </View>
+            </View>
+          );
+        }}
+      />
     </View>
   );
 }
