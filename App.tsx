@@ -2,11 +2,26 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useFonts } from "expo-font";
 import * as React from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import AdvancedFlatListCarousel from "./screens/AdvancedFlatListCarousel";
+import { StyleSheet, Text, View } from "react-native";
+import FlatListStackScreen from "./screens/FlatListStack";
+import Home from "./screens/Home";
 
-const Stack = createNativeStackNavigator();
+export const ROOT_SCREENS = {
+  FlatListStack: {
+    title: "FlatList Reanimated",
+    component: FlatListStackScreen,
+    screenOptions: { headerShown: false },
+  },
+};
+
+export type RootStackParamList = {
+  Home: undefined;
+  NotFound: undefined;
+} & {
+  [P in keyof typeof ROOT_SCREENS]: undefined;
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function App() {
   const [fontsLoaded] = useFonts({
@@ -31,12 +46,25 @@ function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
-          name="Advanced FlatList Carousel"
-          component={AdvancedFlatListCarousel}
+          name="Home"
           options={{ headerShown: false }}
+          component={Home}
         />
+        {(Object.keys(ROOT_SCREENS) as (keyof typeof ROOT_SCREENS)[]).map(
+          (name) => (
+            <Stack.Screen
+              key={name}
+              name={name}
+              getComponent={() => ROOT_SCREENS[name].component}
+              options={{
+                ...ROOT_SCREENS[name].screenOptions,
+                title: ROOT_SCREENS[name].title,
+              }}
+            />
+          )
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

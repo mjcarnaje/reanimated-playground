@@ -5,6 +5,7 @@
 // Youtube Video - Advanced FlatList Carousel Animation in React Native using Animated.API
 // https://youtu.be/YE7c6ch2msY
 
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import * as React from "react";
 import {
   StatusBar,
@@ -17,6 +18,7 @@ import {
   FlatList,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { FlatListStackParams } from "./index";
 const { width, height } = Dimensions.get("screen");
 
 const bgs = ["#A5BBFF", "#DDBEFE", "#FF63ED", "#B98EFF"];
@@ -134,7 +136,10 @@ const Square = ({ scrollX }: { scrollX: Animated.Value }) => {
   );
 };
 
-export default function AdvancedFlatListCarousel() {
+export default function SlickCarousel({
+  navigation,
+  route,
+}: NativeStackScreenProps<FlatListStackParams, "SlickCarousel">) {
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
   return (
