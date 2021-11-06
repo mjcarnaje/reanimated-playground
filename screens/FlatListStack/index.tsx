@@ -4,6 +4,7 @@ import BlurredCarousel from "./BlurredCarousel";
 import SlickCarousel from "./SlickCarousel";
 import FlatListHome from "./FlatListHome";
 import ParallaxCarousel from "./ParallaxCarousel";
+import DynamicTabsUnderline from "./DynamicTabsUnderline";
 
 export const FLATLIST_SCREENS = {
   SlickCarousel: {
@@ -17,6 +18,10 @@ export const FLATLIST_SCREENS = {
   ParallaxCarousel: {
     title: "Parallax Carousel",
     component: ParallaxCarousel,
+  },
+  DynamicTabsUnderline: {
+    title: "Dynamic Tabs Underline",
+    component: DynamicTabsUnderline,
   },
 };
 
